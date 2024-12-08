@@ -1,8 +1,7 @@
 package backend.academy.argparser;
 
-import backend.academy.transformation.NonlinearTransformation;
 import com.beust.jcommander.Parameter;
-import java.util.List;
+import java.nio.file.Path;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -31,12 +30,12 @@ public class Args {
     private int iterations;
 
     @Parameter(
-        names = {"-t", "--transformations"},
-        description = "Non linear transformations for generation",
-        converter = NonlinearTransformationConverter.class,
+        names = {"-c", "--config"},
+        description = "Transformations for generation pass via json config",
+        converter = PathConverter.class,
         required = true
     )
-    private List<NonlinearTransformation> transformations;
+    private Path config;
 
     @Parameter(
         names = {"-f", "--format"},
