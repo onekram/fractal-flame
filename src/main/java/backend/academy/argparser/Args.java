@@ -1,6 +1,7 @@
 package backend.academy.argparser;
 
 import com.beust.jcommander.Parameter;
+import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -27,6 +28,14 @@ public class Args {
         required = true
     )
     private int iterations;
+
+    @Parameter(
+        names = {"-t", "--transformations"},
+        description = "Non linear transformations for generation",
+        converter = NonlinearTransformationConverter.class,
+        required = true
+    )
+    private List<NonlinearTransformation> transformations;
 
     @Parameter(
         names = {"-f", "--format"},
