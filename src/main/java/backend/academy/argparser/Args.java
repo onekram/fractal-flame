@@ -31,7 +31,8 @@ public class Args {
     @Parameter(
         names = {"-f", "--format"},
         description = "Output image format",
-        defaultValueDescription = "JPG image format"
+        defaultValueDescription = "JPG image format",
+        converter = ImageFormatConverter.class
     )
     private ImageFormat format = ImageFormat.JPG;
 
