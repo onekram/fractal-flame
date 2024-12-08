@@ -4,6 +4,7 @@ import backend.academy.shapes.Point;
 import backend.academy.shapes.Rect;
 import java.util.List;
 import java.util.Random;
+import backend.academy.transformation.Transformation;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

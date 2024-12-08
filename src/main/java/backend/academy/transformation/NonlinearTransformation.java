@@ -1,6 +1,5 @@
-package backend.academy.argparser;
+package backend.academy.transformation;
 
-import backend.academy.render.Transformation;
 import backend.academy.shapes.Point;
 import lombok.RequiredArgsConstructor;
 

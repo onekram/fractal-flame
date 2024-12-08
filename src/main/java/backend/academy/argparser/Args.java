@@ -1,5 +1,6 @@
 package backend.academy.argparser;
 
+import backend.academy.transformation.NonlinearTransformation;
 import com.beust.jcommander.Parameter;
 import java.util.List;
 import lombok.Getter;
