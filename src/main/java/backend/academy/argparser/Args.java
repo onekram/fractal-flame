@@ -36,7 +36,7 @@ public class Args {
         description = "Number of rotations for generation",
         defaultValueDescription = "Set 1 as default"
     )
-    private int rotations;
+    private int rotations = 12;
 
     @Parameter(
         names = {"-c", "--config"},
