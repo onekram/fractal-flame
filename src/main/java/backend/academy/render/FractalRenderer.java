@@ -21,7 +21,7 @@ public class FractalRenderer {
         List<LinearTransformation> transformations,
         int samples,
         int iterPerSample,
-        int symmetry
+        int rotations
     ) {
         RandomPicker<LinearTransformation> picker = new RandomPicker<>(transformations);
         for (int i = 0; i < samples; i++) {
@@ -33,7 +33,7 @@ public class FractalRenderer {
                 p = transformation.apply(p);
                 if (j > 0) {
                     double angle = 0;
-                    for (int s = 0; s < symmetry; angle += Math.PI * 2 / symmetry, ++s) {
+                    for (int s = 0; s < rotations; angle += Math.PI * 2 / rotations, ++s) {
                         Point pr = rotate(p, angle);
                         if (world.contains(pr)) {
                             Pixel pixel = mapRange(pr, world, canvas);

@@ -2,6 +2,7 @@ package backend.academy.argparser;
 
 import com.beust.jcommander.Parameter;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -30,6 +31,13 @@ public class Args {
     private int iterations;
 
     @Parameter(
+        names = {"-r", "--rotations"},
+        description = "Number of rotations for generation",
+        defaultValueDescription = "Set 1 as default"
+    )
+    private int rotations;
+
+    @Parameter(
         names = {"-c", "--config"},
         description = "Transformations for generation pass via json config",
         converter = PathConverter.class,
@@ -44,6 +52,21 @@ public class Args {
         converter = ImageFormatConverter.class
     )
     private ImageFormat format = ImageFormat.JPG;
+
+    @Parameter(
+        names = {"-o", "--output"},
+        description = "Output image file",
+        defaultValueDescription = "out.jpg file",
+        converter = OutputPathConverter.class
+    )
+    private Path output = Paths.get("out.jpg");
+
+    @Parameter(
+        names = {"-s", "--show"},
+        description = "Show fractal in window",
+        defaultValueDescription = "Turned off"
+    )
+    private boolean show = false;
 
     @Parameter(names = {"--h", "--help"}, help = true)
     private boolean help;
