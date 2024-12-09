@@ -66,6 +66,7 @@ public enum NonlinearTransformation implements Transformation {
         double th = Math.atan2(point.y(), point.x());
         return new Point(Math.sin(th) * Math.cos(r), Math.cos(th) * Math.sin(r));
     }),
+    @SuppressWarnings("MagicNumber")
     EX(point -> {
         double r = point.r();
         double th = Math.atan2(point.y(), point.x());
@@ -96,6 +97,7 @@ public enum NonlinearTransformation implements Transformation {
         double re = 2 / (Math.sqrt(Math.pow(point.x(), 2) + Math.pow(point.y(), 2)) + 1);
         return new Point(re * point.y(), re * point.x());
     }),
+    @SuppressWarnings("MagicNumber")
     POPCORN(point -> {
         double c2 = 1;
         double c5 = 1;
@@ -113,6 +115,7 @@ public enum NonlinearTransformation implements Transformation {
         double re = 2 / (Math.sqrt(Math.pow(point.x(), 2) + Math.pow(point.y(), 2)) + 1);
         return new Point(re * point.x(), re * point.y());
     }),
+    @SuppressWarnings("MagicNumber")
     BUBBLE(point -> {
         double re = 4 / (Math.pow(Math.sqrt(Math.pow(point.x(), 2) + Math.pow(point.y(), 2)), 2) + 4);
         return new Point(re * point.x(), re * point.y());
@@ -133,6 +136,7 @@ public enum NonlinearTransformation implements Transformation {
         double s = Math.sqrt(1 / Math.pow(Math.pow(point.x(), 2) - Math.pow(point.y(), 2), 2));
         return new Point(s * point.x(), s * point.y());
     }),
+    @SuppressWarnings("MagicNumber")
     SQUARE(point -> {
         double p1 = Math.random();
         double p2 = Math.random();
