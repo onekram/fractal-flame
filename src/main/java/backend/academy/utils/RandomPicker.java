@@ -11,9 +11,6 @@ public class RandomPicker<T extends Probabilistic> {
     private final static Random RANDOM = new SecureRandom();
 
     public RandomPicker(List<T> list) {
-        if (list.isEmpty()) {
-            throw new IllegalArgumentException("List is empty");
-        }
         this.items = list;
         double total = list.stream().mapToDouble(Probabilistic::getProbability).sum();
         cumulativeProbabilities =

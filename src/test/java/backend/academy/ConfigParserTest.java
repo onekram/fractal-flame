@@ -59,13 +59,13 @@ public class ConfigParserTest {
     @Test
     @DisplayName("No error parse")
     void noErrorParse() {
-        assertDoesNotThrow(() -> ConfigParser.parse(tempFile.toString()));
+        assertDoesNotThrow(() -> ConfigParser.parse(tempFile));
     }
 
     @Test
     @DisplayName("Correct parse")
     void correctParse() throws IOException {
-        LinearTransformation transformation = ConfigParser.parse(tempFile.toString()).getFirst();
+        LinearTransformation transformation = ConfigParser.parse(tempFile).getFirst();
         assertThat(transformation.getProbability()).isEqualTo(0.416);
         assertThat(transformation.red()).isEqualTo(255);
         assertThat(transformation.green()).isEqualTo(255);

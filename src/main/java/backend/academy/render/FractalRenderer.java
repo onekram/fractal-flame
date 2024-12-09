@@ -4,16 +4,12 @@ import backend.academy.shapes.Point;
 import backend.academy.shapes.Rect;
 import backend.academy.transformation.LinearTransformation;
 import backend.academy.utils.RandomPicker;
-import backend.academy.utils.RandomUtils;
-import java.security.SecureRandom;
 import java.util.List;
-import java.util.Random;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class FractalRenderer {
-    private static final Random RANDOM = new SecureRandom();
-
+    private static final int SKIP_STEPS = 20;
 
     public static FractalImage render(
         FractalImage canvas,
@@ -28,7 +24,7 @@ public class FractalRenderer {
 
             Point p = world.randomPoint();
 
-            for (int j = -20; j < iterPerSample; j++) {
+            for (int j = -SKIP_STEPS; j < iterPerSample; j++) {
                 LinearTransformation transformation = picker.pick();
                 p = transformation.apply(p);
                 if (j > 0) {

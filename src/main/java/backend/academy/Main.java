@@ -13,9 +13,14 @@ import com.beust.jcommander.JCommander;
 import java.awt.image.BufferedImage;
 import java.util.List;
 import lombok.experimental.UtilityClass;
+import lombok.extern.log4j.Log4j2;
 
 @UtilityClass
+@Log4j2
 public class Main {
+
+    public static final int SAMPLES = 10;
+
     public static void main(String[] args) {
         try {
             Args parsedArgs = new Args();
@@ -28,13 +33,13 @@ public class Main {
 
             FractalImage fractalImage = getFractalImage(parsedArgs);
 
-            List<LinearTransformation> transformations = ConfigParser.parse(parsedArgs.config().toString());
+            List<LinearTransformation> transformations = ConfigParser.parse(parsedArgs.config());
             fractalImage = FractalRenderer.render(
                 fractalImage,
                 Rect.getMirror((double) fractalImage.width() / fractalImage.height() / parsedArgs.zoom(),
                     (double) 1 / parsedArgs.zoom()),
                 transformations,
-                10,
+                SAMPLES,
                 parsedArgs.iterations(),
                 parsedArgs.rotations());
 
@@ -43,7 +48,7 @@ public class Main {
                 FractalImageDisplay.display(image);
             }
         } catch (Exception e) {
-            System.out.println("An error occurred: " + e.getMessage());
+            log.error("An error occurred: {}", e.getMessage());
         }
     }
 
