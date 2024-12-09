@@ -1,6 +1,5 @@
-package backend.academy;
+package backend.academy.configparser;
 
-import backend.academy.configparser.ConfigParser;
 import backend.academy.render.shapes.Point;
 import backend.academy.transformation.LinearTransformation;
 import java.io.IOException;
@@ -8,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -59,7 +59,7 @@ public class ConfigParserTest {
     @Test
     @DisplayName("No error parse")
     void noErrorParse() {
-        assertDoesNotThrow(() -> ConfigParser.parse(tempFile));
+        Assertions.assertDoesNotThrow(() -> ConfigParser.parse(tempFile));
     }
 
     @Test

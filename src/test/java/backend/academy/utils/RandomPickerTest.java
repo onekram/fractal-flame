@@ -1,7 +1,5 @@
-package backend.academy;
+package backend.academy.utils;
 
-import backend.academy.utils.Probabilistic;
-import backend.academy.utils.RandomPicker;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;

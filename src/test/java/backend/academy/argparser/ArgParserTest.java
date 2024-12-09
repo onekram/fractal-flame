@@ -1,6 +1,5 @@
-package backend.academy;
+package backend.academy.argparser;
 
-import backend.academy.argparser.Args;
 import backend.academy.display.ImageFormat;
 import com.beust.jcommander.JCommander;
 import java.io.IOException;
