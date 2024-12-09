@@ -6,7 +6,6 @@ import backend.academy.display.FractalImageDisplay;
 import backend.academy.display.FractalImageWriter;
 import backend.academy.render.FractalImage;
 import backend.academy.render.FractalRenderer;
-import backend.academy.render.Pixel;
 import backend.academy.render.shapes.Rect;
 import backend.academy.transformation.LinearTransformation;
 import com.beust.jcommander.JCommander;
@@ -31,7 +30,7 @@ public class Main {
                 return;
             }
 
-            FractalImage fractalImage = getFractalImage(parsedArgs);
+            FractalImage fractalImage = FractalImage.create(parsedArgs.width(), parsedArgs.height());
 
             List<LinearTransformation> transformations = ConfigParser.parse(parsedArgs.config());
             fractalImage = FractalRenderer.render(
@@ -50,14 +49,6 @@ public class Main {
         } catch (Exception e) {
             log.error("An error occurred: {}", e.getMessage());
         }
-    }
-
-    private static FractalImage getFractalImage(Args parsedArgs) {
-        Pixel[] pixels = new Pixel[parsedArgs.width() * parsedArgs.height()];
-        for (int i = 0; i < pixels.length; i++) {
-            pixels[i] = new Pixel(0, 0, 0, 0);
-        }
-        return new FractalImage(pixels, parsedArgs.width(), parsedArgs.height());
     }
 
     private static JCommander getParser(Args parsedArgs) {
