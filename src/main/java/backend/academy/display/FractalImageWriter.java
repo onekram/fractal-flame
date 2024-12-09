@@ -1,4 +1,4 @@
-package backend.academy.utils;
+package backend.academy.display;
 
 import backend.academy.argparser.ImageFormat;
 import backend.academy.render.FractalImage;
@@ -10,7 +10,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class FractalImageWriter {
-    public static void write(FractalImage fractal, ImageFormat format, Path outputPath) {
+    public static BufferedImage write(FractalImage fractal, ImageFormat format, Path outputPath) {
         BufferedImage image = new BufferedImage(fractal.width(), fractal.height(), BufferedImage.TYPE_INT_RGB);
 
         for (int x = 0; x < fractal.width(); x++) {
@@ -21,5 +21,6 @@ public class FractalImageWriter {
             }
         }
         format.writeImage(image, outputPath);
+        return image;
     }
 }

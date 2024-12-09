@@ -62,6 +62,13 @@ public class Args {
     private Path output = Paths.get("out.jpg");
 
     @Parameter(
+        names = {"-z", "--zoom"},
+        description = "Zoom for output image",
+        defaultValueDescription = "Set 1 as default"
+    )
+    private double zoom = 1;
+
+    @Parameter(
         names = {"-s", "--show"},
         description = "Show fractal in window",
         defaultValueDescription = "Turned off"

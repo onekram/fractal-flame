@@ -7,6 +7,10 @@ public record Rect(double xMin, double xMax, double yMin, double yMax) {
         return p.x() >= xMin && p.x() <= xMax && p.y() >= yMin && p.y() <= yMax;
     }
 
+    public static Rect getMirror(double x, double y) {
+        return new Rect(-x, x, -y, y);
+    }
+
     public Point randomPoint() {
         return new Point(RandomUtils.nextDoubleBetween(xMin, xMax), RandomUtils.nextDoubleBetween(yMin, yMax));
     }
