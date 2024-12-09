@@ -1,12 +1,11 @@
 package backend.academy;
 
 import backend.academy.configparser.ConfigParser;
+import backend.academy.shapes.Point;
 import backend.academy.transformation.LinearTransformation;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import backend.academy.shapes.Point;
 import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,11 +25,9 @@ public class ConfigParserTest {
             [
                 {
                     "probability": 0.416,
-                    "color": [
-                        100,
-                        30,
-                        233
-                    ],
+                    "red": 255,
+                    "green": 255,
+                    "blue": 255,
                     "coefficients": [
                         1,
                         2,
@@ -41,8 +38,8 @@ public class ConfigParserTest {
                     ],
                     "variations": [
                         {
-                            "weight" : 1,
-                            "func" : "SINUSOIDAL"
+                            "weight": 1,
+                            "func": "SINUSOIDAL"
                         },
                         {
                             "weight": 10,
@@ -70,7 +67,9 @@ public class ConfigParserTest {
     void correctParse() throws IOException {
         LinearTransformation transformation = ConfigParser.parse(tempFile.toString()).getFirst();
         assertThat(transformation.getProbability()).isEqualTo(0.416);
-        assertThat(transformation.color()).isEqualTo(List.of(100, 30, 233));
+        assertThat(transformation.red()).isEqualTo(255);
+        assertThat(transformation.green()).isEqualTo(255);
+        assertThat(transformation.blue()).isEqualTo(255);
 
         Point p = transformation.apply(new Point(10, 15));
         assertThat(p.x()).isCloseTo(-0.805, Percentage.withPercentage(1));

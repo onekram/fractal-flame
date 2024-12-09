@@ -1,15 +1,13 @@
 package backend.academy.shapes;
 
-import java.security.SecureRandom;
-import java.util.Random;
+import backend.academy.utils.RandomUtils;
 
-public record Rect (double x, double y, double width, double height) {
-    private static final Random RANDOM = new SecureRandom();
+public record Rect(double xMin, double xMax, double yMin, double yMax) {
     public boolean contains(Point p) {
-        return p.x() >= x && p.x() <= x + width && p.y() >= y && p.y() <= y + height;
+        return p.x() >= xMin && p.x() <= xMax && p.y() >= yMin && p.y() <= yMax;
     }
 
     public Point randomPoint() {
-        return new Point(x + RANDOM.nextDouble(width), y + RANDOM.nextDouble(height));
+        return new Point(RandomUtils.nextDoubleBetween(xMin, xMax), RandomUtils.nextDoubleBetween(yMin, yMax));
     }
 }

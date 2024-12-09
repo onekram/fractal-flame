@@ -13,8 +13,16 @@ public class LinearTransformation implements Transformation, Probabilistic {
     private double probability;
 
     @Getter
-    @JsonProperty("color")
-    private List<Integer> color;
+    @JsonProperty("red")
+    private int red;
+
+    @Getter
+    @JsonProperty("green")
+    private int green;
+
+    @Getter
+    @JsonProperty("blue")
+    private int blue;
 
     @JsonProperty("coefficients")
     private List<Double> coefficients;

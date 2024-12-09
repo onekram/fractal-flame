@@ -2,51 +2,62 @@ package backend.academy.render;
 
 import backend.academy.shapes.Point;
 import backend.academy.shapes.Rect;
+import backend.academy.transformation.LinearTransformation;
+import backend.academy.utils.RandomPicker;
+import backend.academy.utils.RandomUtils;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
-import backend.academy.transformation.Transformation;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class FractalRenderer {
+    private static final Random RANDOM = new SecureRandom();
+
+
     public static FractalImage render(
         FractalImage canvas,
         Rect world,
-        List<Transformation> transformations,
+        List<LinearTransformation> transformations,
         int samples,
         int iterPerSample,
-        long seed
+        int symmetry
     ) {
-        Random random = new Random(seed);
-        int symmetry = 8;
+        RandomPicker<LinearTransformation> picker = new RandomPicker<>(transformations);
         for (int i = 0; i < samples; i++) {
+
             Point p = world.randomPoint();
 
-            for (int j = 0; j < iterPerSample; j++) {
-                Transformation transformation = randomVariation(transformations, random);
+            for (int j = -20; j < iterPerSample; j++) {
+                LinearTransformation transformation = picker.pick();
                 p = transformation.apply(p);
-                double angle = 0;
-                for (int s = 0; s < symmetry; angle += Math.PI * 2 / symmetry, ++s) {
-                    Point pr = rotate(p, angle);
-                    if (!world.contains(pr)) continue;
-
-                    Pixel pixel = mapRange(world, pr, canvas);
-
-                    int newR = Math.min(255, pixel.r() + 1);
-                    int newG = Math.min(255, pixel.g() + 1);
-                    int newB = Math.min(255, pixel.b() + 1);
-                    int newHitCount = pixel.hitCount() + 1;
-
-                    Pixel newPixel = new Pixel(newR, newG, newB, newHitCount);
-                    canvas.data()[pixelIndex(canvas, pr)] = newPixel;
+                if (j > 0) {
+                    double angle = 0;
+                    for (int s = 0; s < symmetry; angle += Math.PI * 2 / symmetry, ++s) {
+                        Point pr = rotate(p, angle);
+                        if (world.contains(pr)) {
+                            Pixel pixel = mapRange(pr, world, canvas);
+                            paintPixel(pixel, transformation);
+                        }
+                    }
                 }
             }
         }
         return canvas;
     }
 
-    private static Transformation randomVariation(List<Transformation> variations, Random random) {
-        return variations.get(random.nextInt(variations.size()));
+    private static void paintPixel(Pixel pixel, LinearTransformation transformation) {
+        if (pixel.hitCount() == 0) {
+            pixel.r(transformation.red());
+            pixel.g(transformation.green());
+            pixel.b(transformation.blue());
+            pixel.hitCount(1);
+        } else {
+            pixel.r((pixel.r() + transformation.red()) / 2);
+            pixel.g((pixel.g() + transformation.green()) / 2);
+            pixel.b((pixel.b() + transformation.blue()) / 2);
+            pixel.hitCount(pixel.hitCount() + 1);
+        }
     }
 
     private static Point rotate(Point p, double angle) {
@@ -57,16 +68,10 @@ public class FractalRenderer {
         return new Point(newX, newY);
     }
 
-    private static Pixel mapRange(Rect world, Point p, FractalImage canvas) {
-        int x = (int) ((p.x() - world.x()) / world.width() * canvas.width());
-        int y = (int) ((p.y() - world.y()) / world.height() * canvas.height());
+    private static Pixel mapRange(Point p, Rect world, FractalImage canvas) {
+        int x = (int) ((p.x() - world.xMin()) / (world.xMax() - world.xMin()) * canvas.width());
+        int y = (int) ((p.y() - world.yMin()) / (world.yMax() - world.yMin()) * canvas.height());
 
         return canvas.data()[y * canvas.width() + x];
-    }
-
-    private int pixelIndex(FractalImage canvas, Point p) {
-        int x = (int) p.x();
-        int y = (int) p.y();
-        return y * canvas.width() + x;
     }
 }
