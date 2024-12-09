@@ -15,7 +15,7 @@ public class FractalImageWriter {
         for (int x = 0; x < fractal.width(); x++) {
             for (int y = 0; y < fractal.height(); y++) {
                 Pixel pixel = fractal.pixel(x, y);
-                Color color = new Color(pixel.r(), pixel.g(), pixel.b());
+                Color color = new Color(pixel.red(), pixel.green(), pixel.blue());
                 image.setRGB(x, y, color.getRGB());
             }
         }
