@@ -1,6 +1,7 @@
 package backend.academy.transformation;
 
 import backend.academy.render.shapes.Point;
+import backend.academy.utils.RandomUtils;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -123,13 +124,13 @@ public enum NonlinearTransformation implements Transformation {
     CYLINDER(point -> new Point(Math.sin(point.x()), point.y())),
     TANGENT(point -> new Point(Math.sin(point.x()) / Math.cos(point.y()), Math.tan(point.y()))),
     NOISE(point -> {
-        double p1 = Math.random();
-        double p2 = Math.random();
+        double p1 = RandomUtils.nextDouble();
+        double p2 = RandomUtils.nextDouble();
         return new Point(p1 * point.x() * Math.cos(2 * Math.PI * p2), p1 * point.y() * Math.sin(2 * Math.PI * p2));
     }),
     BLUR(point -> {
-        double p1 = Math.random();
-        double p2 = Math.random();
+        double p1 = RandomUtils.nextDouble();
+        double p2 = RandomUtils.nextDouble();
         return new Point(p1 * Math.cos(2 * Math.PI * p2), p1 * Math.sin(2 * Math.PI * p2));
     }),
     CROSS(point -> {
@@ -138,8 +139,8 @@ public enum NonlinearTransformation implements Transformation {
     }),
     @SuppressWarnings("MagicNumber")
     SQUARE(point -> {
-        double p1 = Math.random();
-        double p2 = Math.random();
+        double p1 = RandomUtils.nextDouble();
+        double p2 = RandomUtils.nextDouble();
         return new Point(p1 - 0.5, p2 - 0.5);
     });
     private final Transformation transformation;
