@@ -27,7 +27,7 @@ public class FractalRenderer {
             for (int j = -SKIP_STEPS; j < iterPerSample; j++) {
                 LinearTransformation transformation = picker.pick();
                 p = transformation.apply(p);
-                if (j > 0) {
+                if (j >= 0) {
                     double angle = 0;
                     for (int s = 0; s < rotations; angle += Math.PI * 2 / rotations, ++s) {
                         Point pr = rotate(p, angle);
@@ -65,9 +65,12 @@ public class FractalRenderer {
     }
 
     private static Pixel mapRange(Point p, Rect world, FractalImage canvas) {
-        int x = (int) ((p.x() - world.xMin()) / (world.xMax() - world.xMin()) * canvas.width());
-        int y = (int) ((p.y() - world.yMin()) / (world.yMax() - world.yMin()) * canvas.height());
+        double normalizedX = (p.x() - world.xMin()) / (world.xMax() - world.xMin());
+        double normalizedY = (p.y() - world.yMin()) / (world.yMax() - world.yMin());
 
-        return canvas.data()[y * canvas.width() + x];
+        int x = (int) Math.round(normalizedX * (canvas.width() - 1));
+        int y = (int) Math.round(normalizedY * (canvas.height() - 1));
+
+        return canvas.pixel(x, y);
     }
 }
