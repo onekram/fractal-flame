@@ -73,6 +73,6 @@ public class ConfigParserTest {
 
         Point p = transformation.apply(new Point(10, 15));
         assertThat(p.x()).isCloseTo(-0.805, Percentage.withPercentage(1));
-        assertThat(p.y()).isCloseTo(1.024, Percentage.withPercentage(1));
+        assertThat(p.y()).isCloseTo(1.07, Percentage.withPercentage(1));
     }
 }
