@@ -7,7 +7,7 @@ import backend.academy.display.FractalImageWriter;
 import backend.academy.render.FractalImage;
 import backend.academy.render.FractalRenderer;
 import backend.academy.render.Pixel;
-import backend.academy.shapes.Rect;
+import backend.academy.render.shapes.Rect;
 import backend.academy.transformation.LinearTransformation;
 import com.beust.jcommander.JCommander;
 import java.awt.image.BufferedImage;

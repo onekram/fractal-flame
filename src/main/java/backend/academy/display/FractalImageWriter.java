@@ -1,6 +1,5 @@
 package backend.academy.display;
 
-import backend.academy.argparser.ImageFormat;
 import backend.academy.render.FractalImage;
 import backend.academy.render.Pixel;
 import java.awt.Color;

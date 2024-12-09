@@ -1,6 +1,6 @@
 package backend.academy.transformation;
 
-import backend.academy.shapes.Point;
+import backend.academy.render.shapes.Point;
 import backend.academy.utils.Probabilistic;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;

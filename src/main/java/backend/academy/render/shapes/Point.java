@@ -1,4 +1,4 @@
-package backend.academy.shapes;
+package backend.academy.render.shapes;
 
 public record Point(double x, double y) {
     public double r() {

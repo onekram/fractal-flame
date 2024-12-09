@@ -1,4 +1,4 @@
-package backend.academy.shapes;
+package backend.academy.render.shapes;
 
 import backend.academy.utils.RandomUtils;
 

@@ -1,5 +1,6 @@
 package backend.academy.argparser;
 
+import backend.academy.display.ImageFormat;
 import com.beust.jcommander.Parameter;
 import java.nio.file.Path;
 import java.nio.file.Paths;

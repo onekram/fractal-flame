@@ -1,7 +1,7 @@
 package backend.academy;
 
 import backend.academy.configparser.ConfigParser;
-import backend.academy.shapes.Point;
+import backend.academy.render.shapes.Point;
 import backend.academy.transformation.LinearTransformation;
 import java.io.IOException;
 import java.nio.file.Files;

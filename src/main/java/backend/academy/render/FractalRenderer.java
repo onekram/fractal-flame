@@ -1,7 +1,7 @@
 package backend.academy.render;
 
-import backend.academy.shapes.Point;
-import backend.academy.shapes.Rect;
+import backend.academy.render.shapes.Point;
+import backend.academy.render.shapes.Rect;
 import backend.academy.transformation.LinearTransformation;
 import backend.academy.utils.RandomPicker;
 import java.util.List;

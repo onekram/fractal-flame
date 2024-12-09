@@ -1,6 +1,6 @@
 package backend.academy.transformation;
 
-import backend.academy.shapes.Point;
+import backend.academy.render.shapes.Point;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record Variation(@JsonProperty("weight") double weight,
