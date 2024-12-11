@@ -76,6 +76,13 @@ public class Args {
     )
     private boolean show = false;
 
+    @Parameter(
+        names = {"--thread-type"},
+        description = "Specify render parallel or in single thread",
+        defaultValueDescription = "Parallel"
+    )
+    private ThreadRendererType rendererType = ThreadRendererType.PARALLEL;
+
     @Parameter(names = {"--h", "--help"}, help = true)
     private boolean help;
 }

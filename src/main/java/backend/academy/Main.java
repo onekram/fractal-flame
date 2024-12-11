@@ -5,7 +5,6 @@ import backend.academy.configparser.ConfigParser;
 import backend.academy.display.FractalImageDisplay;
 import backend.academy.display.FractalImageWriter;
 import backend.academy.render.FractalImage;
-import backend.academy.render.renderer.ExecutorServiceFractalRenderer;
 import backend.academy.render.shapes.Rect;
 import backend.academy.transformation.LinearTransformation;
 import com.beust.jcommander.JCommander;
@@ -33,7 +32,7 @@ public class Main {
             FractalImage fractalImage = FractalImage.create(parsedArgs.width(), parsedArgs.height());
 
             List<LinearTransformation> transformations = ConfigParser.parse(parsedArgs.config());
-            new ExecutorServiceFractalRenderer().render(
+            parsedArgs.rendererType().getRenderer().render(
                 fractalImage,
                 Rect.getMirror((double) fractalImage.width() / fractalImage.height() / parsedArgs.zoom(),
                     (double) 1 / parsedArgs.zoom()),
