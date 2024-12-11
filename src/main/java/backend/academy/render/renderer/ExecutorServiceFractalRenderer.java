@@ -21,7 +21,7 @@ public class ExecutorServiceFractalRenderer extends AbstractFractalRenderer {
         int iterPerSample,
         int rotations
     ) {
-        try (ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())) {
+        try (ExecutorService executor = Executors.newCachedThreadPool()) {
             RandomPicker<LinearTransformation> picker = new RandomPicker<>(transformations);
             List<Future<?>> futures = new ArrayList<>(samples);
             for (int i = 0; i < samples; i++) {

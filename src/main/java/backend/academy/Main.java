@@ -5,7 +5,7 @@ import backend.academy.configparser.ConfigParser;
 import backend.academy.display.FractalImageDisplay;
 import backend.academy.display.FractalImageWriter;
 import backend.academy.render.FractalImage;
-import backend.academy.render.renderer.SingleThreadRenderer;
+import backend.academy.render.renderer.ExecutorServiceFractalRenderer;
 import backend.academy.render.shapes.Rect;
 import backend.academy.transformation.LinearTransformation;
 import com.beust.jcommander.JCommander;
@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class Main {
 
-    public static final int SAMPLES = 10;
+    public static final int SAMPLES = 20;
 
     public static void main(String[] args) {
         try {
@@ -33,7 +33,7 @@ public class Main {
             FractalImage fractalImage = FractalImage.create(parsedArgs.width(), parsedArgs.height());
 
             List<LinearTransformation> transformations = ConfigParser.parse(parsedArgs.config());
-            new SingleThreadRenderer().render(
+            new ExecutorServiceFractalRenderer().render(
                 fractalImage,
                 Rect.getMirror((double) fractalImage.width() / fractalImage.height() / parsedArgs.zoom(),
                     (double) 1 / parsedArgs.zoom()),
