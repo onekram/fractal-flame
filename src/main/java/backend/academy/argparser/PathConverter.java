@@ -4,12 +4,11 @@ import com.beust.jcommander.IStringConverter;
 import com.beust.jcommander.ParameterException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class PathConverter implements IStringConverter<Path> {
     @Override
     public Path convert(String s) {
-        Path path = Paths.get(s);
+        Path path = Path.of(s);
         if (!Files.exists(path)) {
             throw new ParameterException("File " + s + " does not exist");
         }
