@@ -43,7 +43,15 @@ public class ArgParserTest {
     @Test
     @DisplayName("Correctness test")
     void correctness() {
-        String[] args = {"-w", "100", "-h", "100", "-i", "100", "-c", tempFile.toString(), "-f", "BMP"};
+        String[] args =
+            {
+                "-w", "100",
+                "-h", "100",
+                "-i", "100",
+                "-c", tempFile.toString(),
+                "-f", "BMP",
+                "-o", "output.file",
+                "--thread-type", "sinGlE"};
 
         assertDoesNotThrow(() -> parser.parse(args));
         assertThat(parsedArgs.width()).isEqualTo(100);
@@ -51,6 +59,8 @@ public class ArgParserTest {
         assertThat(parsedArgs.iterations()).isEqualTo(100);
         assertThat(parsedArgs.config()).isEqualTo(tempFile);
         assertThat(parsedArgs.format()).isEqualTo(ImageFormat.BMP);
+        assertThat(parsedArgs.output()).isEqualTo(Path.of("output.file"));
+        assertThat(parsedArgs.threadType()).isEqualTo(ThreadRendererType.SINGLE);
     }
 
     @Test
