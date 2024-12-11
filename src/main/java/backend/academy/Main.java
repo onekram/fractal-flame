@@ -40,7 +40,7 @@ public class Main {
             } else {
                 transformations = ConfigParser.parse(parsedArgs.config());
             }
-            parsedArgs.rendererType().getRenderer().render(
+            parsedArgs.threadType().getRenderer().render(
                 fractalImage,
                 Rect.getMirror((double) fractalImage.width() / fractalImage.height() / parsedArgs.zoom(),
                     (double) 1 / parsedArgs.zoom()),

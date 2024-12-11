@@ -85,7 +85,7 @@ public class Args {
         description = "Specify render parallel or in single thread",
         defaultValueDescription = "Parallel"
     )
-    private ThreadRendererType rendererType = ThreadRendererType.PARALLEL;
+    private ThreadRendererType threadType = ThreadRendererType.PARALLEL;
 
     @Parameter(
         names = {"-g", "--gamma"},
