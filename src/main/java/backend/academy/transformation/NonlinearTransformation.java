@@ -100,11 +100,11 @@ public enum NonlinearTransformation implements Transformation {
     }),
     @SuppressWarnings("MagicNumber")
     POPCORN(point -> {
-        double c2 = 1;
-        double c5 = 1;
+        double c = 2;
+        double f = 3;
         return new Point(
-            point.x() + (c2 * Math.sin(Math.tan(3 * point.y()))),
-            point.y() + (c5 * Math.sin(Math.tan(3 * point.x())))
+            point.x() + (c * Math.sin(Math.tan(3 * point.y()))),
+            point.y() + (f * Math.sin(Math.tan(3 * point.x())))
         );
     }),
     POWER(point -> {
