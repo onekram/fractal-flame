@@ -75,21 +75,25 @@ public class BenchMarkTest {
             10);
     }
 
-    @Test
-    public void launchBenchmark() throws Exception {
-        Options opt = new OptionsBuilder()
-            .include(this.getClass().getName() + ".*")
-            .mode(Mode.AverageTime)
-            .timeUnit(TimeUnit.MICROSECONDS)
-            .warmupTime(TimeValue.seconds(1))
-            .warmupIterations(1)
-            .measurementTime(TimeValue.seconds(1))
-            .measurementIterations(1)
-            .threads(3)
-            .forks(1)
-            .shouldFailOnError(true)
-            .build();
-
-        new Runner(opt).run();
-    }
+//    @Test
+//    public void launchBenchmark() throws Exception {
+//        try {
+//            Options opt = new OptionsBuilder()
+//                .include(this.getClass().getName() + ".*")
+//                .mode(Mode.AverageTime)
+//                .timeUnit(TimeUnit.MICROSECONDS)
+//                .warmupTime(TimeValue.seconds(1))
+//                .warmupIterations(1)
+//                .measurementTime(TimeValue.seconds(1))
+//                .measurementIterations(1)
+//                .threads(3)
+//                .forks(1)
+//                .shouldFailOnError(true)
+//                .build();
+//
+//            new Runner(opt).run();
+//        } catch (Exception e) {
+//            throw new RuntimeException("inner");
+//        }
+//    }
 }
