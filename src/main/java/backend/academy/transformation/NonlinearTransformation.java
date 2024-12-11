@@ -112,10 +112,6 @@ public enum NonlinearTransformation implements Transformation {
         double rsth = Math.pow(Math.sqrt(Math.pow(point.x(), 2) + Math.pow(point.y(), 2)), Math.sin(th));
         return new Point(rsth * Math.cos(th), rsth * Math.sin(th));
     }),
-    EYEFISH(point -> {
-        double re = 2 / (Math.sqrt(Math.pow(point.x(), 2) + Math.pow(point.y(), 2)) + 1);
-        return new Point(re * point.x(), re * point.y());
-    }),
     @SuppressWarnings("MagicNumber")
     BUBBLE(point -> {
         double re = 4 / (Math.pow(Math.sqrt(Math.pow(point.x(), 2) + Math.pow(point.y(), 2)), 2) + 4);
