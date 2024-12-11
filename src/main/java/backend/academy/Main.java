@@ -20,6 +20,7 @@ import lombok.extern.log4j.Log4j2;
 public class Main {
     private static final int SAMPLES = 20;
     private static final int TRANSFORMATIONS_COUNT = 20;
+    private static final int AVERAGING_BOX_SIZE = 3;
 
     public static void main(String[] args) {
         try {
@@ -31,7 +32,8 @@ public class Main {
                 return;
             }
 
-            FractalImage fractalImage = FractalImage.create(parsedArgs.width(), parsedArgs.height());
+            FractalImage fractalImage =
+                FractalImage.create(parsedArgs.width() * AVERAGING_BOX_SIZE, parsedArgs.height() * AVERAGING_BOX_SIZE);
 
             List<LinearTransformation> transformations;
             if (parsedArgs.config() == null) {
@@ -49,6 +51,7 @@ public class Main {
                 parsedArgs.iterations(),
                 parsedArgs.rotations());
 
+            fractalImage = ImageUtils.pixelAveraging(fractalImage, AVERAGING_BOX_SIZE);
             ImageUtils.gammaCorrection(fractalImage, parsedArgs.gamma());
 
             BufferedImage image = FractalImageWriter.write(fractalImage, parsedArgs.format(), parsedArgs.output());
