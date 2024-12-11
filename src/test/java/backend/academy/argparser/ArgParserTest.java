@@ -1,16 +1,20 @@
 package backend.academy.argparser;
 
 import backend.academy.display.ImageFormat;
+import backend.academy.transformation.NonlinearTransformation;
 import com.beust.jcommander.JCommander;
+import com.beust.jcommander.ParameterException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class ArgParserTest {
@@ -47,5 +51,31 @@ public class ArgParserTest {
         assertThat(parsedArgs.iterations()).isEqualTo(100);
         assertThat(parsedArgs.config()).isEqualTo(tempFile);
         assertThat(parsedArgs.format()).isEqualTo(ImageFormat.BMP);
+    }
+
+    @Test
+    @DisplayName("Build from transformations")
+    void transformation() {
+        String[] args = {"-w", "100", "-h", "100", "-i", "100",
+            "--transformations",
+            NonlinearTransformation.SINUSOIDAL.toString(),
+            NonlinearTransformation.HEART.toString(),
+            NonlinearTransformation.SPHERICAL.toString()};
+
+        assertDoesNotThrow(() -> parser.parse(args));
+        assertThat(parsedArgs.transformations()).isEqualTo(
+            List.of(
+                NonlinearTransformation.SINUSOIDAL,
+                NonlinearTransformation.HEART,
+                NonlinearTransformation.SPHERICAL
+            ));
+    }
+
+    @Test
+    @DisplayName("No config validation test")
+    void validate() {
+        String[] args = {"-w", "100", "-h", "100", "-i", "100", "-f", "BMP"};
+        assertThatThrownBy(() -> parser.parse(args)).isInstanceOf(ParameterException.class)
+            .hasMessageContaining("--config or --transformations are required");
     }
 }

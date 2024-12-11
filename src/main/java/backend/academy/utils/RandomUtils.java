@@ -15,4 +15,8 @@ public class RandomUtils {
     public static double nextDouble() {
         return RANDOM.nextDouble();
     }
+
+    public static int nextIntBetween(int min, int max) {
+        return RANDOM.nextInt(max - min + 1) + min;
+    }
 }

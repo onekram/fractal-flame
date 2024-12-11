@@ -8,6 +8,7 @@ import backend.academy.render.FractalImage;
 import backend.academy.render.ImageUtils;
 import backend.academy.render.shapes.Rect;
 import backend.academy.transformation.LinearTransformation;
+import backend.academy.transformation.TransformationUtils;
 import com.beust.jcommander.JCommander;
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -18,6 +19,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class Main {
     private static final int SAMPLES = 20;
+    private static final int TRANSFORMATIONS_COUNT = 20;
 
     public static void main(String[] args) {
         try {
@@ -31,7 +33,13 @@ public class Main {
 
             FractalImage fractalImage = FractalImage.create(parsedArgs.width(), parsedArgs.height());
 
-            List<LinearTransformation> transformations = ConfigParser.parse(parsedArgs.config());
+            List<LinearTransformation> transformations;
+            if (parsedArgs.config() == null) {
+                transformations =
+                    TransformationUtils.generateTransformations(parsedArgs.transformations(), TRANSFORMATIONS_COUNT);
+            } else {
+                transformations = ConfigParser.parse(parsedArgs.config());
+            }
             parsedArgs.rendererType().getRenderer().render(
                 fractalImage,
                 Rect.getMirror((double) fractalImage.width() / fractalImage.height() / parsedArgs.zoom(),

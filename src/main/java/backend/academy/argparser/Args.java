@@ -1,14 +1,18 @@
 package backend.academy.argparser;
 
 import backend.academy.display.ImageFormat;
+import backend.academy.transformation.NonlinearTransformation;
 import com.beust.jcommander.Parameter;
+import com.beust.jcommander.Parameters;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
 @ToString
+@Parameters(parametersValidators = {BuildConfigValidator.class})
 public class Args {
     private static final double DEFAULT_GAMMA = 0.5;
     @Parameter(
@@ -42,8 +46,7 @@ public class Args {
     @Parameter(
         names = {"-c", "--config"},
         description = "Transformations for generation pass via json config",
-        converter = PathConverter.class,
-        required = true
+        converter = PathConverter.class
     )
     private Path config;
 
@@ -90,6 +93,15 @@ public class Args {
         defaultValueDescription = "Set 0.5 as default"
     )
     private double gamma = DEFAULT_GAMMA;
+
+    @Parameter(
+        names = {"--transformations"},
+        description = "Transformations on the basis of which the configuration will be built "
+            + "(ignore if config file passed)",
+        variableArity = true,
+        converter = NonLinearTransformationConverter.class
+    )
+    private List<NonlinearTransformation> transformations;
 
     @Parameter(names = {"--h", "--help"}, help = true)
     private boolean help;
