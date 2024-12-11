@@ -10,6 +10,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class Args {
+    private static final double DEFAULT_GAMMA = 0.5;
     @Parameter(
         names = {"-w", "--width"},
         description = "Generated image width",
@@ -82,6 +83,13 @@ public class Args {
         defaultValueDescription = "Parallel"
     )
     private ThreadRendererType rendererType = ThreadRendererType.PARALLEL;
+
+    @Parameter(
+        names = {"-g", "--gamma"},
+        description = "Gamma correction coefficient should be less or equal than 1",
+        defaultValueDescription = "Set 0.5 as default"
+    )
+    private double gamma = DEFAULT_GAMMA;
 
     @Parameter(names = {"--h", "--help"}, help = true)
     private boolean help;

@@ -18,7 +18,6 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class Main {
     private static final int SAMPLES = 20;
-    private static final double GAMMA = 0.9;
 
     public static void main(String[] args) {
         try {
@@ -42,7 +41,7 @@ public class Main {
                 parsedArgs.iterations(),
                 parsedArgs.rotations());
 
-            ImageUtils.gammaCorrection(fractalImage, GAMMA);
+            ImageUtils.gammaCorrection(fractalImage, parsedArgs.gamma());
 
             BufferedImage image = FractalImageWriter.write(fractalImage, parsedArgs.format(), parsedArgs.output());
             if (parsedArgs.show()) {
