@@ -12,10 +12,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class ExecutorServiceFractalRenderer extends AbstractFractalRenderer {
-    @Override
-    public void render(
-        FractalImage canvas,
-        Rect world,
+    public ExecutorServiceFractalRenderer(
         List<LinearTransformation> transformations,
         int samples,
         int iterPerSample,
@@ -23,11 +20,19 @@ public class ExecutorServiceFractalRenderer extends AbstractFractalRenderer {
         boolean symmetricX,
         boolean symmetricY
     ) {
+        super(transformations, samples, iterPerSample, rotations, symmetricX, symmetricY);
+    }
+
+    @Override
+    public void render(
+        FractalImage canvas,
+        Rect world
+    ) {
         try (ExecutorService executor = Executors.newCachedThreadPool()) {
             RandomPicker<LinearTransformation> picker = new RandomPicker<>(transformations);
             List<Future<?>> futures = new ArrayList<>(samples);
             for (int i = 0; i < samples; i++) {
-                futures.add(executor.submit(() -> renderSample(canvas, world, picker, iterPerSample, rotations, symmetricX, symmetricY)));
+                futures.add(executor.submit(() -> renderSample(canvas, world, picker)));
             }
             for (Future<?> future : futures) {
                 future.get();

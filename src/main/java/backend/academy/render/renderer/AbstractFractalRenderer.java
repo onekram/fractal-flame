@@ -7,30 +7,28 @@ import backend.academy.render.shapes.Rect;
 import backend.academy.transformation.LinearTransformation;
 import backend.academy.utils.RandomPicker;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public abstract class AbstractFractalRenderer implements Renderer {
     private static final int SKIP_STEPS = 20;
+    protected final List<LinearTransformation> transformations;
+    protected final int samples;
+    protected final int iterPerSample;
+    protected final int rotations;
+    protected final boolean symmetricX;
+    protected final boolean symmetricY;
 
     @Override
     public abstract void render(
         FractalImage canvas,
-        Rect world,
-        List<LinearTransformation> transformations,
-        int samples,
-        int iterPerSample,
-        int rotations,
-        boolean symmetricX,
-        boolean symmetricY
+        Rect world
     );
 
     protected void renderSample(
         FractalImage canvas,
         Rect world,
-        RandomPicker<LinearTransformation> picker,
-        int iterPerSample,
-        int rotations,
-        boolean symmetricX,
-        boolean symmetricY
+        RandomPicker<LinearTransformation> picker
     ) {
         Point p = world.randomPoint();
 
@@ -51,25 +49,27 @@ public abstract class AbstractFractalRenderer implements Renderer {
         }
     }
 
+    @SuppressWarnings("MagicNumber")
     private static Point reflectPoint(boolean symmetricX, boolean symmetricY, int j, Point p) {
+        Point res = p;
         if (symmetricX && symmetricY) {
             if (j % 4 == 0) {
-                p = new Point(-p.x(), -p.y());
+                res = new Point(-p.x(), -p.y());
             } else if (j % 4 == 1) {
-                p = new Point(p.x(), -p.y());
+                res = new Point(p.x(), -p.y());
             } else if (j % 4 == 2) {
-                p = new Point(-p.x(), p.y());
+                res = new Point(-p.x(), p.y());
             }
         } else if (symmetricX) {
             if (j % 2 == 0) {
-                p = new Point(-p.x(), p.y());
+                res = new Point(-p.x(), p.y());
             }
         } else if (symmetricY) {
             if (j % 2 == 0) {
-                p = new Point(p.x(), -p.y());
+                res = new Point(p.x(), -p.y());
             }
         }
-        return p;
+        return res;
     }
 
     private static Point rotate(Point p, double angle) {

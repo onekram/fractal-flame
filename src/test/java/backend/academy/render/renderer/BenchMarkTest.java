@@ -30,6 +30,9 @@ public class BenchMarkTest {
         LinearTransformation lt2 = mock(LinearTransformation.class);
         FractalImage image;
         Rect rect;
+        Renderer single;
+        Renderer executorService;
+        Renderer forkJoinPool;
 
         @Setup()
         public void setUp() {
@@ -56,25 +59,25 @@ public class BenchMarkTest {
             when(lt2.getProbability()).thenReturn(0.4);
             image = FractalImage.create(1000, 1000);
             rect = Rect.getMirror(1, 1);
+            single = new SingleThreadRenderer(List.of(lt1, lt2), 10, 1000, 10, false, false);
+            executorService = new ExecutorServiceFractalRenderer(List.of(lt1, lt2), 10, 1000, 10, false, false);
+            forkJoinPool = new ForkJoinPoolFractalRenderer(List.of(lt1, lt2), 10, 1000, 10, false, false);
         }
     }
 
     @Benchmark
     public void singleThread(BenchmarkState state) {
-        new SingleThreadRenderer().render(state.image, state.rect, List.of(state.lt1, state.lt2), 10, 1000, 10, false,
-            false);
+        state.single.render(state.image, state.rect);
     }
 
     @Benchmark
     public void executorService(BenchmarkState state) {
-        new ExecutorServiceFractalRenderer().render(state.image, state.rect, List.of(state.lt1, state.lt2), 10, 1000,
-            10, false, false);
+        state.executorService.render(state.image, state.rect);
     }
 
     @Benchmark
     public void forkJointPool(BenchmarkState state) {
-        new ForkJoinPoolFractalRenderer().render(state.image, state.rect, List.of(state.lt1, state.lt2), 10, 1000,
-            10, false, false);
+        state.forkJoinPool.render(state.image, state.rect);
     }
 
     @Test

@@ -42,16 +42,18 @@ public class Main {
             } else {
                 transformations = ConfigParser.parse(parsedArgs.config());
             }
-            parsedArgs.threadType().getRenderer().render(
-                fractalImage,
-                Rect.getMirror((double) fractalImage.width() / fractalImage.height() / parsedArgs.zoom(),
-                    (double) 1 / parsedArgs.zoom()),
+            parsedArgs.threadType().getRenderer(
                 transformations,
                 SAMPLES,
                 parsedArgs.iterations(),
                 parsedArgs.rotations(),
                 parsedArgs.symmetricX(),
-                parsedArgs.symmetricY());
+                parsedArgs.symmetricY()
+            ).render(
+                fractalImage,
+                Rect.getMirror((double) fractalImage.width() / fractalImage.height() / parsedArgs.zoom(),
+                    (double) 1 / parsedArgs.zoom())
+            );
 
             fractalImage = ImageUtils.pixelAveraging(fractalImage, AVERAGING_BOX_SIZE);
             ImageUtils.gammaCorrection(fractalImage, parsedArgs.gamma());

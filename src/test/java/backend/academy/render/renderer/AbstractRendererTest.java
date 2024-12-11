@@ -4,10 +4,10 @@ import backend.academy.render.FractalImage;
 import backend.academy.render.shapes.Point;
 import backend.academy.render.shapes.Rect;
 import backend.academy.transformation.LinearTransformation;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import java.util.List;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -24,7 +24,8 @@ public abstract class AbstractRendererTest {
         when(linearTransformation.green()).thenReturn(255);
 
         FractalImage image = FractalImage.create(5, 5);
-        getRenderer().render(image, Rect.getMirror(2, 2), List.of(linearTransformation), 1, 3, 4, false, false);
+        getRenderer(List.of(linearTransformation), 1, 3, 4, false, false)
+            .render(image, Rect.getMirror(2, 2));
 
         assertNotNull(image);
 
@@ -44,5 +45,13 @@ public abstract class AbstractRendererTest {
             }
         }
     }
-    protected abstract Renderer getRenderer();
+
+    protected abstract Renderer getRenderer(
+        List<LinearTransformation> transformations,
+        int samples,
+        int iterPerSample,
+        int rotations,
+        boolean symmetricX,
+        boolean symmetricY
+    );
 }

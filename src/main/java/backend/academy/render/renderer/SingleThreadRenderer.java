@@ -7,10 +7,7 @@ import backend.academy.utils.RandomPicker;
 import java.util.List;
 
 public class SingleThreadRenderer extends AbstractFractalRenderer {
-    @Override
-    public void render(
-        FractalImage canvas,
-        Rect world,
+    public SingleThreadRenderer(
         List<LinearTransformation> transformations,
         int samples,
         int iterPerSample,
@@ -18,9 +15,17 @@ public class SingleThreadRenderer extends AbstractFractalRenderer {
         boolean symmetricX,
         boolean symmetricY
     ) {
+        super(transformations, samples, iterPerSample, rotations, symmetricX, symmetricY);
+    }
+
+    @Override
+    public void render(
+        FractalImage canvas,
+        Rect world
+    ) {
         RandomPicker<LinearTransformation> picker = new RandomPicker<>(transformations);
         for (int i = 0; i < samples; i++) {
-            renderSample(canvas, world, picker, iterPerSample, rotations, symmetricX, symmetricY);
+            renderSample(canvas, world, picker);
         }
     }
 }
