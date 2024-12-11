@@ -7,17 +7,10 @@ import backend.academy.transformation.LinearTransformation;
 import backend.academy.transformation.NonlinearTransformation;
 import backend.academy.transformation.Transformation;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import org.junit.jupiter.api.Test;
 import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
-import org.openjdk.jmh.runner.Runner;
-import org.openjdk.jmh.runner.options.Options;
-import org.openjdk.jmh.runner.options.OptionsBuilder;
-import org.openjdk.jmh.runner.options.TimeValue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -76,24 +69,20 @@ public class BenchMarkTest {
     }
 
 //    @Test
-//    public void launchBenchmark() throws Exception {
-//        try {
-//            Options opt = new OptionsBuilder()
-//                .include(this.getClass().getName() + ".*")
-//                .mode(Mode.AverageTime)
-//                .timeUnit(TimeUnit.MICROSECONDS)
-//                .warmupTime(TimeValue.seconds(1))
-//                .warmupIterations(1)
-//                .measurementTime(TimeValue.seconds(1))
-//                .measurementIterations(1)
-//                .threads(3)
-//                .forks(1)
-//                .shouldFailOnError(true)
-//                .build();
+//    public void launchBenchmark() throws RunnerException {
+//        Options opt = new OptionsBuilder()
+//            .include(this.getClass().getName() + ".*")
+//            .mode(Mode.AverageTime)
+//            .timeUnit(TimeUnit.MICROSECONDS)
+//            .warmupTime(TimeValue.seconds(1))
+//            .warmupIterations(1)
+//            .measurementTime(TimeValue.seconds(1))
+//            .measurementIterations(1)
+//            .threads(3)
+//            .forks(1)
+//            .shouldFailOnError(true)
+//            .build();
 //
-//            new Runner(opt).run();
-//        } catch (Exception e) {
-//            throw new RuntimeException("inner");
-//        }
+//        new Runner(opt).run();
 //    }
 }
