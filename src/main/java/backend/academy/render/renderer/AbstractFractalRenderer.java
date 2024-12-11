@@ -18,7 +18,9 @@ public abstract class AbstractFractalRenderer implements Renderer {
         List<LinearTransformation> transformations,
         int samples,
         int iterPerSample,
-        int rotations
+        int rotations,
+        boolean symmetricX,
+        boolean symmetricY
     );
 
     protected void renderSample(
@@ -26,13 +28,16 @@ public abstract class AbstractFractalRenderer implements Renderer {
         Rect world,
         RandomPicker<LinearTransformation> picker,
         int iterPerSample,
-        int rotations
+        int rotations,
+        boolean symmetricX,
+        boolean symmetricY
     ) {
         Point p = world.randomPoint();
 
         for (int j = -SKIP_STEPS; j < iterPerSample; j++) {
             LinearTransformation transformation = picker.pick();
             p = transformation.apply(p);
+            p = reflectPoint(symmetricX, symmetricY, j, p);
             if (j >= 0) {
                 double angle = 0;
                 for (int s = 0; s < rotations; angle += Math.PI * 2 / rotations, ++s) {
@@ -44,6 +49,27 @@ public abstract class AbstractFractalRenderer implements Renderer {
                 }
             }
         }
+    }
+
+    private static Point reflectPoint(boolean symmetricX, boolean symmetricY, int j, Point p) {
+        if (symmetricX && symmetricY) {
+            if (j % 4 == 0) {
+                p = new Point(-p.x(), -p.y());
+            } else if (j % 4 == 1) {
+                p = new Point(p.x(), -p.y());
+            } else if (j % 4 == 2) {
+                p = new Point(-p.x(), p.y());
+            }
+        } else if (symmetricX) {
+            if (j % 2 == 0) {
+                p = new Point(-p.x(), p.y());
+            }
+        } else if (symmetricY) {
+            if (j % 2 == 0) {
+                p = new Point(p.x(), -p.y());
+            }
+        }
+        return p;
     }
 
     private static Point rotate(Point p, double angle) {

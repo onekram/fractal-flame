@@ -19,13 +19,15 @@ public class ExecutorServiceFractalRenderer extends AbstractFractalRenderer {
         List<LinearTransformation> transformations,
         int samples,
         int iterPerSample,
-        int rotations
+        int rotations,
+        boolean symmetricX,
+        boolean symmetricY
     ) {
         try (ExecutorService executor = Executors.newCachedThreadPool()) {
             RandomPicker<LinearTransformation> picker = new RandomPicker<>(transformations);
             List<Future<?>> futures = new ArrayList<>(samples);
             for (int i = 0; i < samples; i++) {
-                futures.add(executor.submit(() -> renderSample(canvas, world, picker, iterPerSample, rotations)));
+                futures.add(executor.submit(() -> renderSample(canvas, world, picker, iterPerSample, rotations, symmetricX, symmetricY)));
             }
             for (Future<?> future : futures) {
                 future.get();

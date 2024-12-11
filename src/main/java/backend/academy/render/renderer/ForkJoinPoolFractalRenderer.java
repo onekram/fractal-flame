@@ -17,11 +17,14 @@ public class ForkJoinPoolFractalRenderer extends AbstractFractalRenderer {
         List<LinearTransformation> transformations,
         int samples,
         int iterPerSample,
-        int rotations
+        int rotations,
+        boolean symmetricX,
+        boolean symmetricY
     ) {
         try (ForkJoinPool pool = new ForkJoinPool()) {
             pool.invoke(
-                new RenderTask(canvas, world, new RandomPicker<>(transformations), samples, iterPerSample, rotations));
+                new RenderTask(canvas, world, new RandomPicker<>(transformations), samples, iterPerSample, rotations,
+                    symmetricX, symmetricY));
         }
     }
 
@@ -33,16 +36,19 @@ public class ForkJoinPoolFractalRenderer extends AbstractFractalRenderer {
         private final int samples;
         private final int iterPerSample;
         private final int rotations;
+        private final boolean symmetricX;
+        private final boolean symmetricY;
 
         @Override
         protected void compute() {
             if (samples <= 1) {
-                renderSample(canvas, world, picker, iterPerSample, rotations);
+                renderSample(canvas, world, picker, iterPerSample, rotations, symmetricX, symmetricY);
             } else {
                 int mid = samples / 2;
                 invokeAll(
-                    new RenderTask(canvas, world, picker, mid, iterPerSample, rotations),
-                    new RenderTask(canvas, world, picker, samples - mid, iterPerSample, rotations));
+                    new RenderTask(canvas, world, picker, mid, iterPerSample, rotations, symmetricX, symmetricY),
+                    new RenderTask(canvas, world, picker, samples - mid, iterPerSample, rotations, symmetricX,
+                        symmetricY));
             }
         }
     }

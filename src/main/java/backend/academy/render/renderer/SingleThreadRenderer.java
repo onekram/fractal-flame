@@ -14,11 +14,13 @@ public class SingleThreadRenderer extends AbstractFractalRenderer {
         List<LinearTransformation> transformations,
         int samples,
         int iterPerSample,
-        int rotations
+        int rotations,
+        boolean symmetricX,
+        boolean symmetricY
     ) {
         RandomPicker<LinearTransformation> picker = new RandomPicker<>(transformations);
         for (int i = 0; i < samples; i++) {
-            renderSample(canvas, world, picker, iterPerSample, rotations);
+            renderSample(canvas, world, picker, iterPerSample, rotations, symmetricX, symmetricY);
         }
     }
 }

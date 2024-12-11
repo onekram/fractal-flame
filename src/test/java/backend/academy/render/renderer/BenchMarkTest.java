@@ -61,19 +61,20 @@ public class BenchMarkTest {
 
     @Benchmark
     public void singleThread(BenchmarkState state) {
-        new SingleThreadRenderer().render(state.image, state.rect, List.of(state.lt1, state.lt2), 10, 1000, 10);
+        new SingleThreadRenderer().render(state.image, state.rect, List.of(state.lt1, state.lt2), 10, 1000, 10, false,
+            false);
     }
 
     @Benchmark
     public void executorService(BenchmarkState state) {
         new ExecutorServiceFractalRenderer().render(state.image, state.rect, List.of(state.lt1, state.lt2), 10, 1000,
-            10);
+            10, false, false);
     }
 
     @Benchmark
     public void forkJointPool(BenchmarkState state) {
         new ForkJoinPoolFractalRenderer().render(state.image, state.rect, List.of(state.lt1, state.lt2), 10, 1000,
-            10);
+            10, false, false);
     }
 
     @Test

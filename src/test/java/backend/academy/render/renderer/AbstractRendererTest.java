@@ -24,7 +24,7 @@ public abstract class AbstractRendererTest {
         when(linearTransformation.green()).thenReturn(255);
 
         FractalImage image = FractalImage.create(5, 5);
-        getRenderer().render(image, Rect.getMirror(2, 2), List.of(linearTransformation), 1, 3, 4);
+        getRenderer().render(image, Rect.getMirror(2, 2), List.of(linearTransformation), 1, 3, 4, false, false);
 
         assertNotNull(image);
 

@@ -12,6 +12,8 @@ public interface Renderer {
         List<LinearTransformation> transformations,
         int samples,
         int iterPerSample,
-        int rotations
+        int rotations,
+        boolean symmetricX,
+        boolean symmetricY
     );
 }
