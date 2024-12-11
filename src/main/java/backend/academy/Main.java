@@ -5,6 +5,7 @@ import backend.academy.configparser.ConfigParser;
 import backend.academy.display.FractalImageDisplay;
 import backend.academy.display.FractalImageWriter;
 import backend.academy.render.FractalImage;
+import backend.academy.render.ImageUtils;
 import backend.academy.render.shapes.Rect;
 import backend.academy.transformation.LinearTransformation;
 import com.beust.jcommander.JCommander;
@@ -16,8 +17,8 @@ import lombok.extern.log4j.Log4j2;
 @UtilityClass
 @Log4j2
 public class Main {
-
-    public static final int SAMPLES = 20;
+    private static final int SAMPLES = 20;
+    private static final double GAMMA = 0.9;
 
     public static void main(String[] args) {
         try {
@@ -40,6 +41,8 @@ public class Main {
                 SAMPLES,
                 parsedArgs.iterations(),
                 parsedArgs.rotations());
+
+            ImageUtils.gammaCorrection(fractalImage, GAMMA);
 
             BufferedImage image = FractalImageWriter.write(fractalImage, parsedArgs.format(), parsedArgs.output());
             if (parsedArgs.show()) {
