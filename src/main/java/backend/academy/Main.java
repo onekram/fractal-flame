@@ -50,8 +50,8 @@ public class Main {
                 SAMPLES,
                 parsedArgs.iterations(),
                 parsedArgs.rotations(),
-                true,
-                true);
+                parsedArgs.symmetricX(),
+                parsedArgs.symmetricY());
 
             fractalImage = ImageUtils.pixelAveraging(fractalImage, AVERAGING_BOX_SIZE);
             ImageUtils.gammaCorrection(fractalImage, parsedArgs.gamma());

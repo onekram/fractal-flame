@@ -103,6 +103,20 @@ public class Args {
     )
     private List<NonlinearTransformation> transformations;
 
+    @Parameter(
+        names = {"-sx", "--symmetric-x"},
+        description = "Symmetrical about the abscissa axis",
+        defaultValueDescription = "Turned off"
+    )
+    private boolean symmetricX = false;
+
+    @Parameter(
+        names = {"-sy", "--symmetric-y"},
+        description = "Symmetrical about the ordinate axis",
+        defaultValueDescription = "Turned off"
+    )
+    private boolean symmetricY = false;
+
     @Parameter(names = {"--h", "--help"}, help = true)
     private boolean help;
 }
