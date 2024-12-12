@@ -95,7 +95,7 @@ public enum NonlinearTransformation implements Transformation {
         );
     }),
     FISHEYE(point -> {
-        double re = 2 / (Math.sqrt(Math.pow(point.x(), 2) + Math.pow(point.y(), 2)) + 1);
+        double re = 2 / (point.r() + 1);
         return new Point(re * point.y(), re * point.x());
     }),
     @SuppressWarnings("MagicNumber")
@@ -109,12 +109,12 @@ public enum NonlinearTransformation implements Transformation {
     }),
     POWER(point -> {
         double th = Math.atan2(point.y(), point.x());
-        double rsth = Math.pow(Math.sqrt(Math.pow(point.x(), 2) + Math.pow(point.y(), 2)), Math.sin(th));
-        return new Point(rsth * Math.cos(th), rsth * Math.sin(th));
+        double rPow = Math.pow(point.r(), Math.sin(th));
+        return new Point(rPow * Math.cos(th), rPow * Math.sin(th));
     }),
     @SuppressWarnings("MagicNumber")
     BUBBLE(point -> {
-        double re = 4 / (Math.pow(Math.sqrt(Math.pow(point.x(), 2) + Math.pow(point.y(), 2)), 2) + 4);
+        double re = 4 / (Math.pow(point.r(), 2) + 4);
         return new Point(re * point.x(), re * point.y());
     }),
     CYLINDER(point -> new Point(Math.sin(point.x()), point.y())),
