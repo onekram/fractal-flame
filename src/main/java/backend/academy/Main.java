@@ -7,11 +7,18 @@ import backend.academy.display.FractalImageWriter;
 import backend.academy.render.FractalImage;
 import backend.academy.render.ImageUtils;
 import backend.academy.render.shapes.Rect;
+import backend.academy.report.ReportWriter;
+import backend.academy.report.statistics.ArgumentParametersStatistics;
+import backend.academy.report.statistics.Statistics;
+import backend.academy.report.statistics.TimeSpentImageProcessingStatistics;
+import backend.academy.report.statistics.TransformationStatistics;
 import backend.academy.transformation.LinearTransformation;
 import backend.academy.transformation.TransformationUtils;
 import com.beust.jcommander.JCommander;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.List;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
@@ -33,24 +40,35 @@ public class Main {
                 return;
             }
 
+            List<LinearTransformation> transformations = getTransformations(parsedArgs);
+
+            long time = System.currentTimeMillis();
             FractalImage fractalImage = FractalImage.create(
                 parsedArgs.width() * AVERAGING_BOX_SIZE,
                 parsedArgs.height() * AVERAGING_BOX_SIZE);
-
-            List<LinearTransformation> transformations = getTransformations(parsedArgs);
-
             render(fractalImage, transformations, parsedArgs);
-
             fractalImage = ImageUtils.pixelAveraging(fractalImage, AVERAGING_BOX_SIZE);
             ImageUtils.gammaCorrection(fractalImage, parsedArgs.gamma());
+            long elapsedTime = System.currentTimeMillis() - time;
 
             BufferedImage image = FractalImageWriter.write(fractalImage, parsedArgs.format(), parsedArgs.output());
             if (parsedArgs.show()) {
                 FractalImageDisplay.display(image);
             }
+
+            Statistics argsParams = new ArgumentParametersStatistics(parsedArgs);
+            Statistics transformationStatistics = new TransformationStatistics(transformations);
+            Statistics spentTime = new TimeSpentImageProcessingStatistics(elapsedTime);
+            writeReport(parsedArgs, List.of(argsParams, transformationStatistics, spentTime));
         } catch (Exception e) {
             log.error("An error occurred: {}", e.getMessage());
         }
+    }
+
+    private static void writeReport(Args parsedArgs, List<Statistics> statistics) throws IOException {
+        ReportWriter writer = parsedArgs.reportFormat().getReportWriter(
+            Files.newBufferedWriter(parsedArgs.reportOutput(), StandardCharsets.US_ASCII));
+        writer.write(statistics);
     }
 
     private static void render(FractalImage fractalImage, List<LinearTransformation> transformations, Args parsedArgs) {

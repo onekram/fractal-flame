@@ -10,6 +10,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import lombok.Getter;
 
+@Getter
 public class LinearTransformation implements Transformation, Probabilistic {
     private static final int COLOR_BOUND = 255;
     public static final double COEFFICIENT_BOUND = 1;

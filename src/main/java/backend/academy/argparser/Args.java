@@ -117,6 +117,22 @@ public class Args {
     )
     private boolean symmetricY = false;
 
+    @Parameter(
+        names = {"--report-format"},
+        description = "Report format",
+        defaultValueDescription = "Markdown",
+        converter = ReportFormatConverter.class
+    )
+    private ReportFormat reportFormat = ReportFormat.MARKDOWN;
+
+    @Parameter(
+        names = {"--report-output"},
+        description = "Destination for report output",
+        defaultValueDescription = "Standard output",
+        converter = OutputPathConverter.class
+    )
+    private Path reportOutput = Paths.get("report.md");
+
     @Parameter(names = {"--h", "--help"}, help = true)
     private boolean help;
 }
