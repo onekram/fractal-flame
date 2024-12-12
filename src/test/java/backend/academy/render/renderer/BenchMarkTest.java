@@ -59,9 +59,9 @@ public class BenchMarkTest {
             when(lt2.getProbability()).thenReturn(0.4);
             image = FractalImage.create(1000, 1000);
             rect = Rect.getMirror(1, 1);
-            single = new SingleThreadRenderer(List.of(lt1, lt2), 10, 1000, 10, false, false);
-            executorService = new ExecutorServiceFractalRenderer(List.of(lt1, lt2), 10, 1000, 10, false, false);
-            forkJoinPool = new ForkJoinPoolFractalRenderer(List.of(lt1, lt2), 10, 1000, 10, false, false);
+            single = new SingleThreadRenderer(List.of(lt1, lt2), 5, 3000, 10, false, false);
+            executorService = new ExecutorServiceFractalRenderer(List.of(lt1, lt2), 5, 3000, 10, false, false);
+            forkJoinPool = new ForkJoinPoolFractalRenderer(List.of(lt1, lt2), 5, 3000, 10, false, false);
         }
     }
 
@@ -87,10 +87,9 @@ public class BenchMarkTest {
             .mode(Mode.AverageTime)
             .timeUnit(TimeUnit.MICROSECONDS)
             .warmupTime(TimeValue.seconds(1))
-            .warmupIterations(1)
+            .warmupIterations(3)
             .measurementTime(TimeValue.seconds(1))
-            .measurementIterations(1)
-            .threads(3)
+            .measurementIterations(3)
             .forks(1)
             .shouldFailOnError(true)
             .build();

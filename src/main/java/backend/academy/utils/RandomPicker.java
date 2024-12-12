@@ -1,14 +1,11 @@
 package backend.academy.utils;
 
-import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class RandomPicker<T extends Probabilistic> {
     private final double[] cumulativeProbabilities;
     private final List<T> items;
-    private final static Random RANDOM = new SecureRandom();
 
     public RandomPicker(List<T> list) {
         if (list == null || list.isEmpty()) {
@@ -24,7 +21,7 @@ public class RandomPicker<T extends Probabilistic> {
     }
 
     public T pick() {
-        double randomValue = RANDOM.nextDouble();
+        double randomValue = RandomUtils.nextDouble();
         int index = Arrays.binarySearch(cumulativeProbabilities, randomValue);
 
         if (index < 0) {
