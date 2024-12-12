@@ -49,9 +49,14 @@ public class ArgParserTest {
                 "-h", "100",
                 "-i", "100",
                 "-c", tempFile.toString(),
-                "-f", "BMP",
+                "-f", "BmP",
                 "-o", "output.file",
-                "--thread-type", "sinGlE"};
+                "--thread-type", "sinGlE",
+                "--report-format", "aDoC",
+                "--report-output", "report.adoc",
+                "-sx",
+                "-sy",
+                "-g", "0.4"};
 
         assertDoesNotThrow(() -> parser.parse(args));
         assertThat(parsedArgs.width()).isEqualTo(100);
@@ -61,6 +66,11 @@ public class ArgParserTest {
         assertThat(parsedArgs.format()).isEqualTo(ImageFormat.BMP);
         assertThat(parsedArgs.output()).isEqualTo(Path.of("output.file"));
         assertThat(parsedArgs.threadType()).isEqualTo(ThreadRendererType.SINGLE);
+        assertThat(parsedArgs.reportFormat()).isEqualTo(ReportFormat.ADOC);
+        assertThat(parsedArgs.reportOutput()).isEqualTo(Path.of("report.adoc"));
+        assertThat(parsedArgs.symmetricX()).isTrue();
+        assertThat(parsedArgs.symmetricY()).isTrue();
+        assertThat(parsedArgs.gamma()).isEqualTo(0.4);
     }
 
     @Test
@@ -87,5 +97,13 @@ public class ArgParserTest {
         String[] args = {"-w", "100", "-h", "100", "-i", "100", "-f", "BMP"};
         assertThatThrownBy(() -> parser.parse(args)).isInstanceOf(ParameterException.class)
             .hasMessageContaining("--config or --transformations are required");
+    }
+
+    @Test
+    @DisplayName("Config file is not exist")
+    void wrongConfigFile() {
+        String[] args = {"-w", "100", "-h", "100", "-i", "100", "-f", "BMP", "-c", "abd.def"};
+        assertThatThrownBy(() -> parser.parse(args)).isInstanceOf(ParameterException.class)
+            .hasMessageContaining("File abd.def does not exist");
     }
 }
