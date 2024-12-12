@@ -22,6 +22,11 @@ public class NonlinearTransformationTest {
             Arguments.of(NonlinearTransformation.DISC, new Point(1, Math.sqrt(3)), new Point(0, 0.333)),
             Arguments.of(NonlinearTransformation.POLAR, new Point(1, Math.sqrt(3)), new Point(0.33333, 1)),
             Arguments.of(NonlinearTransformation.TANGENT, new Point(0, 0), new Point(0, 0)),
+            Arguments.of(NonlinearTransformation.HORSESHOE, new Point(1, 1), new Point(0, Math.sqrt(2))),
+            Arguments.of(NonlinearTransformation.HANKERCHIEF, new Point(1, Math.sqrt(3)),
+                new Point(2 * Math.sin(Math.PI / 3 + 2), 2 * Math.cos(Math.PI / 3 - 2))),
+            Arguments.of(NonlinearTransformation.HEART, new Point(1, Math.sqrt(3)), new Point(Math.sqrt(3), 1)),
+            Arguments.of(NonlinearTransformation.HEART, new Point(1, Math.sqrt(3)), new Point(Math.sqrt(3), 1)),
             Arguments.of(NonlinearTransformation.SWIRL, new Point(1, 0), new Point(Math.sin(1), Math.cos(1)))
         );
     }
