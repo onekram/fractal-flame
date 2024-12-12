@@ -12,7 +12,7 @@ import lombok.Getter;
 
 public class LinearTransformation implements Transformation, Probabilistic {
     private static final int COLOR_BOUND = 255;
-    public static final double COEFFICIENT_BOUND = 1.5;
+    public static final double COEFFICIENT_BOUND = 1;
     public static final int COEFFICIENTS_COUNT = 6;
 
     @JsonProperty("probability")
