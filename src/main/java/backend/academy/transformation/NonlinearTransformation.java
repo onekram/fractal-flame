@@ -145,13 +145,4 @@ public enum NonlinearTransformation implements Transformation {
     public Point apply(Point point) {
         return transformation.apply(point);
     }
-
-    public static NonlinearTransformation fromString(String s) {
-        for (NonlinearTransformation format : NonlinearTransformation.values()) {
-            if (format.name().equalsIgnoreCase(s)) {
-                return format;
-            }
-        }
-        throw new IllegalArgumentException("Unknown transformation: " + s);
-    }
 }

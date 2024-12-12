@@ -21,13 +21,4 @@ public enum ImageFormat {
             throw new RuntimeException("Fail to write image to " + path, e);
         }
     }
-
-    public static ImageFormat fromString(String s) {
-        for (ImageFormat format : ImageFormat.values()) {
-            if (format.name().equalsIgnoreCase(s)) {
-                return format;
-            }
-        }
-        throw new IllegalArgumentException("Unknown format: " + s);
-    }
 }

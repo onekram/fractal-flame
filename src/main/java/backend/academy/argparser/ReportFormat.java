@@ -24,13 +24,4 @@ public enum ReportFormat {
     };
 
     public abstract ReportWriter getReportWriter(Writer writer);
-
-    public static ReportFormat fromString(String s) {
-        for (ReportFormat format : ReportFormat.values()) {
-            if (format.name().equalsIgnoreCase(s)) {
-                return format;
-            }
-        }
-        throw new IllegalArgumentException("Unknown format: " + s);
-    }
 }

@@ -46,23 +46,21 @@ public class Args {
     @Parameter(
         names = {"-c", "--config"},
         description = "Transformations for generation pass via json config",
-        converter = PathConverter.class
+        validateWith = PathValidator.class
     )
     private Path config;
 
     @Parameter(
         names = {"-f", "--format"},
         description = "Output image format",
-        defaultValueDescription = "JPG image format",
-        converter = ImageFormatConverter.class
+        defaultValueDescription = "JPG image format"
     )
     private ImageFormat format = ImageFormat.JPG;
 
     @Parameter(
         names = {"-o", "--output"},
         description = "Output image file",
-        defaultValueDescription = "out.jpg file",
-        converter = OutputPathConverter.class
+        defaultValueDescription = "out.jpg file"
     )
     private Path output = Paths.get("out.jpg");
 
@@ -98,8 +96,7 @@ public class Args {
         names = {"--transformations"},
         description = "Transformations on the basis of which the configuration will be built "
             + "(ignore if config file passed)",
-        variableArity = true,
-        converter = NonLinearTransformationConverter.class
+        variableArity = true
     )
     private List<NonlinearTransformation> transformations;
 
@@ -120,16 +117,14 @@ public class Args {
     @Parameter(
         names = {"--report-format"},
         description = "Report format",
-        defaultValueDescription = "Markdown",
-        converter = ReportFormatConverter.class
+        defaultValueDescription = "Markdown"
     )
     private ReportFormat reportFormat = ReportFormat.MARKDOWN;
 
     @Parameter(
         names = {"--report-output"},
         description = "Destination for report output",
-        defaultValueDescription = "Standard output",
-        converter = OutputPathConverter.class
+        defaultValueDescription = "Standard output"
     )
     private Path reportOutput = Paths.get("report.md");
 

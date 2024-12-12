@@ -4,7 +4,6 @@ import backend.academy.render.shapes.Point;
 import java.util.stream.Stream;
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -34,12 +33,5 @@ public class NonlinearTransformationTest {
         Point res = func.apply(point);
         assertThat(res.x()).isCloseTo(expected.x(), Offset.offset(0.01));
         assertThat(res.y()).isCloseTo(expected.y(), Offset.offset(0.01));
-    }
-
-    @Test
-    @DisplayName("Get from string")
-    void fromStringTest() {
-        String s = "sPherIcAl";
-        assertThat(NonlinearTransformation.fromString(s)).isEqualTo(NonlinearTransformation.SPHERICAL);
     }
 }

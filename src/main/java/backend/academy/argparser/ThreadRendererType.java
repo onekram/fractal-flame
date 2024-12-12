@@ -43,13 +43,4 @@ public enum ThreadRendererType {
         boolean symmetricX,
         boolean symmetricY
     );
-
-    public static ThreadRendererType fromString(String s) {
-        for (ThreadRendererType type : ThreadRendererType.values()) {
-            if (type.name().equalsIgnoreCase(s)) {
-                return type;
-            }
-        }
-        throw new IllegalArgumentException("Unknown thread type: " + s);
-    }
 }
