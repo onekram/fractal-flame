@@ -37,17 +37,25 @@ public class LinearTransformation implements Transformation, Probabilistic {
     @JsonProperty("variations")
     private List<Variation> variations;
 
+    private Function<Point, Point> transformation;
+
+    private Function<Point, Point> getTransformation() {
+        if (transformation == null) {
+            Function<Point, Point> func;
+            if (variations.isEmpty()) {
+                func = Function.identity();
+            } else {
+                func = input -> variations.stream()
+                    .reduce(new Point(0, 0), (acc, v) -> acc.add(v.apply(input)), Point::add);
+            }
+            transformation =  Transformation.fromCoefficients(coefficients).andThen(func);
+        }
+        return transformation;
+    }
+
     @Override
     public Point apply(Point point) {
-        Function<Point, Point> func;
-        if (variations.isEmpty()) {
-            func = Function.identity();
-        } else {
-            func = input -> variations.stream()
-                .reduce(new Point(0, 0), (acc, v) -> acc.add(v.apply(input)), Point::add);
-        }
-
-        return Transformation.fromCoefficients(coefficients).andThen(func).apply(point);
+        return getTransformation().apply(point);
     }
 
     @Override
