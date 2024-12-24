@@ -18,28 +18,32 @@ public class Args {
     @Parameter(
         names = {"-w", "--width"},
         description = "Generated image width",
-        required = true
+        required = true,
+        validateWith = PositiveInteger.class
     )
     private int width;
 
     @Parameter(
         names = {"-h", "--height"},
         description = "Generated image height",
-        required = true
+        required = true,
+        validateWith = PositiveInteger.class
     )
     private int height;
 
     @Parameter(
         names = {"-i", "--iterations"},
         description = "Number of iterations for generation",
-        required = true
+        required = true,
+        validateWith = PositiveInteger.class
     )
     private int iterations;
 
     @Parameter(
         names = {"-r", "--rotations"},
         description = "Number of rotations for generation",
-        defaultValueDescription = "Set 1 as default"
+        defaultValueDescription = "Set 1 as default",
+        validateWith = PositiveInteger.class
     )
     private int rotations = 1;
 
@@ -67,7 +71,8 @@ public class Args {
     @Parameter(
         names = {"-z", "--zoom"},
         description = "Zoom for output image",
-        defaultValueDescription = "Set 1 as default"
+        defaultValueDescription = "Set 1 as default",
+        validateWith = PositiveDouble.class
     )
     private double zoom = 1;
 
@@ -88,7 +93,8 @@ public class Args {
     @Parameter(
         names = {"-g", "--gamma"},
         description = "Gamma correction coefficient should be less or equal than 1",
-        defaultValueDescription = "Set 0.5 as default"
+        defaultValueDescription = "Set 0.5 as default",
+        validateWith = PositiveDouble.class
     )
     private double gamma = DEFAULT_GAMMA;
 
