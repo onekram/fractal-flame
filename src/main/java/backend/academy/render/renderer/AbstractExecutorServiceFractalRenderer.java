@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class ExecutorServiceFractalRenderer extends AbstractFractalRenderer {
-    public ExecutorServiceFractalRenderer(
+public abstract class AbstractExecutorServiceFractalRenderer extends AbstractFractalRenderer {
+
+    public AbstractExecutorServiceFractalRenderer(
         List<LinearTransformation> transformations,
         int samples,
         int iterPerSample,
@@ -24,11 +24,8 @@ public class ExecutorServiceFractalRenderer extends AbstractFractalRenderer {
     }
 
     @Override
-    public void render(
-        FractalImage canvas,
-        Rect world
-    ) {
-        try (ExecutorService executor = Executors.newCachedThreadPool()) {
+    public void render(FractalImage canvas, Rect world) {
+        try (ExecutorService executor = getExecutor()) {
             RandomPicker<LinearTransformation> picker = new RandomPicker<>(transformations);
             List<Future<?>> futures = new ArrayList<>(samples);
             for (int i = 0; i < samples; i++) {
@@ -41,4 +38,6 @@ public class ExecutorServiceFractalRenderer extends AbstractFractalRenderer {
             throw new RuntimeException(e);
         }
     }
+
+    protected abstract ExecutorService getExecutor();
 }

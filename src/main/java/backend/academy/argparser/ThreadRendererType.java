@@ -1,6 +1,6 @@
 package backend.academy.argparser;
 
-import backend.academy.render.renderer.ExecutorServiceFractalRenderer;
+import backend.academy.render.renderer.CachedThreadExecutorServiceFractalRenderer;
 import backend.academy.render.renderer.Renderer;
 import backend.academy.render.renderer.SingleThreadRenderer;
 import backend.academy.transformation.LinearTransformation;
@@ -30,7 +30,8 @@ public enum ThreadRendererType {
             boolean symmetricX,
             boolean symmetricY
         ) {
-            return new ExecutorServiceFractalRenderer(transformations, samples, iterPerSample, rotations, symmetricX,
+            return new CachedThreadExecutorServiceFractalRenderer(transformations, samples, iterPerSample, rotations,
+                symmetricX,
                 symmetricY);
         }
     };

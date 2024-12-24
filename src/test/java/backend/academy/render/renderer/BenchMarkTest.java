@@ -26,7 +26,8 @@ public class BenchMarkTest {
         FractalImage image;
         Rect rect;
         Renderer single;
-        Renderer executorService;
+        Renderer cachedThreadExecutorService;
+        Renderer virtualThreadExecutorService;
         Renderer forkJoinPool;
 
         @Setup()
@@ -39,8 +40,12 @@ public class BenchMarkTest {
             int iterPerSample = 20000;
             int rotations = 10;
             single = new SingleThreadRenderer(transformations, samples, iterPerSample, rotations, false, false);
-            executorService =
-                new ExecutorServiceFractalRenderer(transformations, samples, iterPerSample, rotations, false, false);
+            cachedThreadExecutorService =
+                new CachedThreadExecutorServiceFractalRenderer(transformations, samples, iterPerSample, rotations,
+                    false, false);
+            virtualThreadExecutorService =
+                new VirtualThreadExecutorServiceFractalRenderer(transformations, samples, iterPerSample, rotations,
+                    false, false);
             forkJoinPool =
                 new ForkJoinPoolFractalRenderer(transformations, samples, iterPerSample, rotations, false, false);
         }
@@ -52,8 +57,13 @@ public class BenchMarkTest {
     }
 
     @Benchmark
-    public void executorService(BenchmarkState state) {
-        state.executorService.render(state.image, state.rect);
+    public void cachedThreadExecutorService(BenchmarkState state) {
+        state.cachedThreadExecutorService.render(state.image, state.rect);
+    }
+
+    @Benchmark
+    public void virtualThreadExecutorService(BenchmarkState state) {
+        state.virtualThreadExecutorService.render(state.image, state.rect);
     }
 
     @Benchmark
