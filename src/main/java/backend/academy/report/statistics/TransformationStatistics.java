@@ -19,21 +19,25 @@ public class TransformationStatistics implements Statistics {
         List<String> table = new LinkedList<>(List.of("Field | Value"));
         for (int i = 0; i < transformations.size(); i++) {
             LinearTransformation transformation = transformations.get(i);
-            table.add(String.format("Probability | %.3f", transformation.probability()));
-            table.add(
-                String.format("Color | Red: %d, Green: %d, Blue: %d",
-                    transformation.red(),
-                    transformation.green(),
-                    transformation.blue()));
-            table.add(String.format("Linear coefficients | %s", transformation.coefficients()
-                .stream().map(d -> String.format("%.3f", d)).toList()));
-            table.add(String.format("Variations | %s", transformation.variations().stream()
-                .map(variation -> String.format("Weight: %.3f, Func: %s", variation.weight(), variation.func()))
-                .toList()));
+            addSingleTransformationStatistic(table, transformation);
             if (i < transformations.size() - 1) {
                 table.add(" | ");
             }
         }
         return table;
+    }
+
+    private static void addSingleTransformationStatistic(List<String> table, LinearTransformation transformation) {
+        table.add(String.format("Probability | %.3f", transformation.probability()));
+        table.add(
+            String.format("Color | Red: %d, Green: %d, Blue: %d",
+                transformation.red(),
+                transformation.green(),
+                transformation.blue()));
+        table.add(String.format("Linear coefficients | %s", transformation.coefficients()
+            .stream().map(d -> String.format("%.3f", d)).toList()));
+        table.add(String.format("Variations | %s", transformation.variations().stream()
+            .map(variation -> String.format("Weight: %.3f, Func: %s", variation.weight(), variation.func()))
+            .toList()));
     }
 }
