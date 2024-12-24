@@ -10,6 +10,8 @@ import java.util.concurrent.RecursiveAction;
 import lombok.RequiredArgsConstructor;
 
 public class ForkJoinPoolFractalRenderer extends AbstractFractalRenderer {
+    private final ForkJoinPool forkJoinPool;
+
     public ForkJoinPoolFractalRenderer(
         List<LinearTransformation> transformations,
         int samples,
@@ -19,17 +21,12 @@ public class ForkJoinPoolFractalRenderer extends AbstractFractalRenderer {
         boolean symmetricY
     ) {
         super(transformations, samples, iterPerSample, rotations, symmetricX, symmetricY);
+        forkJoinPool = new ForkJoinPool();
     }
 
     @Override
-    public void render(
-        FractalImage canvas,
-        Rect world
-    ) {
-        try (ForkJoinPool pool = new ForkJoinPool()) {
-            pool.invoke(
-                new RenderTask(canvas, world, new RandomPicker<>(transformations), samples));
-        }
+    public void render(FractalImage canvas, Rect world) {
+        forkJoinPool.invoke(new RenderTask(canvas, world, new RandomPicker<>(transformations), samples));
     }
 
     @RequiredArgsConstructor
