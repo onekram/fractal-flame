@@ -106,4 +106,16 @@ public class ArgParserTest {
         assertThatThrownBy(() -> parser.parse(args)).isInstanceOf(ParameterException.class)
             .hasMessageContaining("File abd.def does not exist");
     }
+
+    @Test
+    @DisplayName("Only positive values are suitable")
+    void validatePositive() {
+        String[] args = {"-w", "-100", "-h", "100", "-i", "100", "--transformations", "spherical"};
+        assertThatThrownBy(() -> parser.parse(args)).isInstanceOf(ParameterException.class)
+            .hasMessageContaining("Parameter -w should be positive");
+
+        String[] args1 = {"-w", "100", "-h", "100", "-i", "100", "--transformations", "spherical", "--gamma", "-0.5"};
+        assertThatThrownBy(() -> parser.parse(args1)).isInstanceOf(ParameterException.class)
+            .hasMessageContaining("Parameter --gamma should be positive");
+    }
 }
