@@ -1,8 +1,8 @@
 # Fractal Flame Generator
 
 <div style="display: flex; justify-content: space-between;">
-  <img src="pics/hyperbolic.jpg" alt="Hyperbolic fractal" width="49%">
-  <img src="pics/heart.jpg" alt="Heart fractal" width="49%">
+  <img src="docs/pics/hyperbolic.jpg" alt="Hyperbolic fractal" width="49%">
+  <img src="docs/pics/heart.jpg" alt="Heart fractal" width="49%">
 </div>
 
 # Features
